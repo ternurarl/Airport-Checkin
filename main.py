@@ -16,19 +16,15 @@ def checkin(email=os.environ.get('EMAIL'), password=os.environ.get('PASSWORD'),
     session.get(base_url, verify=False)
     login_url = base_url + '/user-login.htm'
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) '
-                      'AppleWebKit/537.36 (KHTML, like Gecko) '
-                      'Chrome/56.0.2924.87 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     }
     post_data = 'email=' + email + '&passwd=' + password + '&code='
     post_data = post_data.encode()
     response = session.post(login_url, post_data, headers=headers, verify=False)
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) '
-                      'AppleWebKit/537.36 (KHTML, like Gecko) '
-                      'Chrome/56.0.2924.87 Safari/537.36',
-        'Referer': base_url + '/user'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+        'Referer': base_url + '/user-login.htm'
     }
     response = session.post(base_url + '/sg_sign.htm', headers=headers,
                             verify=False)
