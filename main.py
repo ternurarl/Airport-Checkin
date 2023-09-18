@@ -14,7 +14,7 @@ def checkin(email=os.environ.get('EMAIL'), password=os.environ.get('PASSWORD'),
     email = email[0] + '%40' + email[1]
     session = requests.session()
     session.get(base_url, verify=False)
-    login_url = base_url + '/auth/login'
+    login_url = base_url + '/user-login.htm'
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) '
                       'AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -30,7 +30,7 @@ def checkin(email=os.environ.get('EMAIL'), password=os.environ.get('PASSWORD'),
                       'Chrome/56.0.2924.87 Safari/537.36',
         'Referer': base_url + '/user'
     }
-    response = session.post(base_url + '/user/checkin', headers=headers,
+    response = session.post(base_url + '/sg_sign.htm', headers=headers,
                             verify=False)
     response = json.loads(response.text)
     print(response['msg'])
