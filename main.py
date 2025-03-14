@@ -22,8 +22,8 @@ def checkin(email=os.environ.get('EMAIL'), password=os.environ.get('PASSWORD'),
         raise ValueError(f"邮箱格式错误: {email} (缺少@符号)")
 
    
-    email = email.split('@')
-    email = email[0] + '%40' + email[1]
+    email_part = email.split('@')
+    email_encoded = email_part[0] + '%40' + email_part[1]
     session = requests.session()
     session.get(base_url, verify=False)
     login_url = base_url + '/user-login.htm'
@@ -31,7 +31,7 @@ def checkin(email=os.environ.get('EMAIL'), password=os.environ.get('PASSWORD'),
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     }
-    post_data = 'email=' + email + '&passwd=' + password + '&code='
+    post_data = 'email=' + email_encoded + '&passwd=' + password + '&code='
     post_data = post_data.encode()
     response = session.post(login_url, post_data, headers=headers, verify=False)
     headers = {
