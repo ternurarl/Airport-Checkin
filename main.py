@@ -10,6 +10,18 @@ TG_USER_ID = os.environ.get('TGUSERID')
 
 def checkin(email=os.environ.get('EMAIL'), password=os.environ.get('PASSWORD'),
             base_url=os.environ.get('BASE_URL'), ):
+    if not all([email, password, base_url]):
+        missing = []
+        if not email: missing.append("EMAIL")
+        if not password: missing.append("PASSWORD")
+        if not base_url: missing.append("BASE_URL")
+        raise ValueError(f"缺少环境变量: {', '.join(missing)}")
+
+    # 验证邮箱格式
+    if "@" not in email:
+        raise ValueError(f"邮箱格式错误: {email} (缺少@符号)")
+
+   
     email = email.split('@')
     email = email[0] + '%40' + email[1]
     session = requests.session()
